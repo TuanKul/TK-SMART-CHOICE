@@ -1,0 +1,45 @@
+logging:
+  file: /var/log/kuleasycode/smart_choice.log
+spring:
+  application:
+    name: tk-third-party-dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tk_smart_choice?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+    driverClassName: org.postgresql.Driver
+    username: tk_ouath
+    password: Rh6YYLv526
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+#      ddl-auto: create
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+eureka:
+  client:
+    enabled: false
+
+security:
+  oauth2:
+    client:
+      client-id: smart_choice_client
+      authorized-grant-types: client_credentials
+      client-secret: 123456
+    resource:
+      token-info-uri: http://localhost:9000/oauth/check_token
+      id: smart_choice_dev
+server:
+  port: 9090
+  
+third-party:
+  partner-List:
+    tiki:
+      des-file-path: /opt/img/
+      supplier: tiki
+    lazada:
+      des-file-path: /opt/img/
+      supplier: lazada
+    shoppe:
+      des-file-path: /opt/img/
+      supplier: shoppe
