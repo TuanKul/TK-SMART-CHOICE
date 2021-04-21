@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/tk_smart_choice?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
     driverClassName: org.postgresql.Driver
-    username: tk_ouath
+    username: tk_main_choice
     password: Rh6YYLv526
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -30,16 +30,34 @@ security:
       token-info-uri: http://localhost:9000/oauth/check_token
       id: smart_choice_dev
 server:
-  port: 9090
+  port: 9091
   
-third-party:
-  partner-List:
-    tiki:
-      des-file-path: /opt/img/
-      supplier: tiki
-    lazada:
-      des-file-path: /opt/img/
-      supplier: lazada
-    shoppe:
-      des-file-path: /opt/img/
-      supplier: shoppe
+internal:
+  log-api:
+    service-id: MS-LOG-DEV
+    access-token-url: http://localhost:9000/oauth/token
+    client-id: third_party_client
+    client-secret: 123456
+    grant-type: client_credentials
+    log-url: http://localhost:9091/oauth/token
+    
+external:
+  tiki:
+    access-token-url: http://localhost:9000/oauth/token
+    client-id: third_party_client
+    client-secret: 123456
+    grant-type: client_credentials
+    tiki-url: http://localhost:9090/v1/tiki/get-all
+  lazada:
+    access-token-url: http://localhost:9000/oauth/token
+    client-id: third_party_client
+    client-secret: 123456
+    grant-type: client_credentials
+    lazada-url: http://localhost:9090/v1/lazada/get-all
+  shopee:
+    access-token-url: http://localhost:9000/oauth/token
+    client-id: third_party_client
+    client-secret: 123456
+    grant-type: client_credentials
+    shopee-url: http://localhost:9090/v1/shoppe/get-all
+    

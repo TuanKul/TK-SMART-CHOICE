@@ -1,4 +1,4 @@
-package net.kuleasycode.tksmartchoice.response;
+package net.kuleasycode.tksmartchoice.api.external.response;
 
 import java.time.ZoneId;
 import java.util.Date;

@@ -15,28 +15,28 @@ import lombok.extern.slf4j.Slf4j;
 import net.kuleasycode.tksmartchoice.api.external.response.AccessTokenResponse;
 import net.kuleasycode.tksmartchoice.api.external.response.ProductResponse;
 import net.kuleasycode.tksmartchoice.settings.ExternalSetting;
-import net.kuleasycode.tksmartchoice.settings.TikiSetting;
+import net.kuleasycode.tksmartchoice.settings.ShopeeSetting;
 
 @Component
 @Slf4j
-public class TikiApi {
+public class ShopeeApi {
 
 	@Autowired
 	private ExternalSetting externalSetting;
 	
-	public ProductResponse callAPIFromTiki() {
+	public ProductResponse callAPIFromShopee() {
 		try {
-			TikiSetting tikiSetting = externalSetting.getTiki();
-			if (StringUtils.isEmpty(tikiSetting) || StringUtils.isEmpty(tikiSetting.getAccessTokenUrl())) {
-				log.info("External TIKI get setting fail...");
+			ShopeeSetting shopeeSetting = externalSetting.getShopee();
+			if (StringUtils.isEmpty(shopeeSetting) || StringUtils.isEmpty(shopeeSetting.getAccessTokenUrl())) {
+				log.info("External Shoppe get setting fail...");
 				return null;
 			}
-			String accessToken = getAccessToken(tikiSetting.getClientId(), tikiSetting.getClientSecret());
+			String accessToken = getAccessToken(shopeeSetting.getClientId(), shopeeSetting.getClientSecret());
 			HttpEntity<Object> entity = new HttpEntity<>(getHttpHeaders(accessToken));
 			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<ProductResponse> response = restTemplate.exchange(tikiSetting.getTikiUrl(), HttpMethod.GET, entity, ProductResponse.class);
-			log.info("url: " + tikiSetting.getTikiUrl());
-			log.info("response tiki: " + response.getBody());
+			ResponseEntity<ProductResponse> response = restTemplate.exchange(shopeeSetting.getShopeeUrl(), HttpMethod.GET, entity, ProductResponse.class);
+			log.info("url: " + shopeeSetting.getShopeeUrl());
+			log.info("response Shopee: " + response.getBody());
 			return response.getBody();
 		} catch( Exception e) {
 			log.error(e.toString(), e);
@@ -45,18 +45,18 @@ public class TikiApi {
 	}
 	
 	public String getAccessToken(String clientId, String clientSecret) {
-		log.info("External TIKI getAccessToken");
-		TikiSetting tikiSetting = externalSetting.getTiki();
-		if (StringUtils.isEmpty(tikiSetting) || StringUtils.isEmpty(tikiSetting.getAccessTokenUrl())) {
-			log.info("External TIKI getAccessToken : token url missing from config");
+		log.info("External Shopee getAccessToken");
+		ShopeeSetting shoppeSetting = externalSetting.getShopee();
+		if (StringUtils.isEmpty(shoppeSetting) || StringUtils.isEmpty(shoppeSetting.getAccessTokenUrl())) {
+			log.info("External Shopee getAccessToken : token url missing from config");
 			return null;
 		}
-		String grantType = "grant_type=" + tikiSetting.getGrantType();
+		String grantType = "grant_type=" + shoppeSetting.getGrantType();
 		try {
 			HttpEntity<Object> httpEntity = new HttpEntity<>(grantType,
 					getHttpHeadersAccessToken(clientId, clientSecret));
 			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(tikiSetting.getAccessTokenUrl(),
+			ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(shoppeSetting.getAccessTokenUrl(),
 					HttpMethod.POST, httpEntity, AccessTokenResponse.class);
 			if (StringUtils.isEmpty(response) || response.getStatusCode() != HttpStatus.OK) {
 				return null;
@@ -68,7 +68,7 @@ public class TikiApi {
 			}
 
 		} catch (Exception e) {
-			log.info("External TIKI->getAccessToken Error: " + e.toString(), e);
+			log.info("External Shopee->getAccessToken Error: " + e.toString(), e);
 			return null;
 		}
 	}

@@ -1,12 +1,13 @@
 package net.kuleasycode.tksmartchoice.service.impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,10 +39,15 @@ public class SmartServiceImpl implements SmartService {
 	@Override
 	public ProductResponse searchProduct(SearchProductRequest request, Pageable pageable) {
 		try {
-			Date startDate = ValidationUtils.parseDate(request.getStartDate());
-			Date endDate = ValidationUtils.parseDate(request.getEndDate());
-			Page<ProductEntity> pageProducts = productRepository.findAllByProductNameFromDateLessThanEqualAndValidToDateGreaterThanEqual(request.getSearchValue(), startDate, endDate, pageable);
+			log.info("START");
+			LocalDate startDate = ValidationUtils.parseDate(request.getStartDate()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate endDate = ValidationUtils.parseDate(request.getEndDate()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//			Date startDate = ValidationUtils.parseDate(request.getStartDate());
+//			Date endDate = ValidationUtils.parseDate(request.getEndDate());
+			log.info("11122221");
+			Page<ProductEntity> pageProducts = productRepository.findByProductNameIgnoreCaseContaining(request.getSearchValue(), pageable);
 			
+			log.info("1111"+pageProducts.getContent());
 			List<ProductDto> listDto = pageProducts.getContent().stream().map(entity -> productConverter.convertEntityToDto(entity)).collect(Collectors.toList());
 			
 			List<ProductDetailsResponse> listResult = listDto.stream().map(detail -> new ProductDetailsResponse(detail)).collect(Collectors.toList());
@@ -50,6 +56,7 @@ public class SmartServiceImpl implements SmartService {
 			Pagination pagination = new Pagination(pageProducts.getNumber(), pageProducts.getSize(), pageProducts.getTotalPages(), pageProducts.getTotalElements());
 			response.setListProductDetail(listResult);
 			response.setPagination(pagination);
+			log.info("END");
 			return response;
 		} catch (Exception e) {
 			log.info("[EXCEPTION]" + e.toString(), e);

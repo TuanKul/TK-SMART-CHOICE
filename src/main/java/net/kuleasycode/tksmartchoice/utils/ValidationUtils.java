@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ValidationUtils {
 	public static final String MY_TIME_ZONE = "Asia/Bangkok";
 	
-	public static final Pattern PATTERN_DATE = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)+$");
+	public static final Pattern PATTERN_DATE = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)+$");
 	public static final String PATTERN_TYPE_DATE = "date-type"; // dd/MM/yyyy
 	public static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("UTC");
 	
@@ -25,7 +25,7 @@ public class ValidationUtils {
 	public static Date parseDate(String strDate) {
 		try {
             if (PATTERN_DATE.matcher(strDate).matches()) {
-            	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            	DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             	df.setTimeZone(UTC_TIME_ZONE);
             	df.setLenient(false);
             	return df.parse(strDate);

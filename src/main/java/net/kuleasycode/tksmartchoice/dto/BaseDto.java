@@ -1,13 +1,13 @@
 package net.kuleasycode.tksmartchoice.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
 @Data
 public class BaseDto {
 
-	protected Date createdDate;
+	protected LocalDate createdDate;
 	
-	protected Date updatedDate;
+	protected LocalDate updatedDate;
 }

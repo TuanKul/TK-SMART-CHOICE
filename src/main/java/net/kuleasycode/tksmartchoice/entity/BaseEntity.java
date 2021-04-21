@@ -1,5 +1,6 @@
 package net.kuleasycode.tksmartchoice.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,8 +13,8 @@ import lombok.Data;
 public class BaseEntity {
 
 	@Column(name = "created_date")
-	protected Date createdDate;
+	protected LocalDate createdDate;
 	
 	@Column(name = "updated_date")
-	protected Date updatedDate;
+	protected LocalDate updatedDate;
 }

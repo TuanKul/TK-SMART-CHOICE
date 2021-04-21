@@ -6,14 +6,17 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.kuleasycode.tksmartchoice.common.Constant;
 import net.kuleasycode.tksmartchoice.common.HttpStatusCode;
-import net.kuleasycode.tksmartchoice.response.BaseResponse;
 import net.kuleasycode.tksmartchoice.response.ProductResponse;
 import net.kuleasycode.tksmartchoice.utils.ValidationUtils;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SearchProductRequest {
 
 	@JsonProperty("search_value")
