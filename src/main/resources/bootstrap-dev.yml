@@ -2,62 +2,88 @@ logging:
   file: /var/log/kuleasycode/smart_choice.log
 spring:
   application:
-    name: tk-third-party-dev
-  datasource:
-    url: jdbc:postgresql://localhost:5432/tk_smart_choice?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
-    driverClassName: org.postgresql.Driver
-    username: tk_main_choice
-    password: Rh6YYLv526
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
-#      ddl-auto: create
-      ddl-auto: update
-    properties:
-      hibernate.jdbc.lob.non_contextual_creation: true
+    name: tk-smart-choice-dev
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/tk_smart_choice?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+#    driverClassName: org.postgresql.Driver
+#    username: tk_main_choice
+#    password: Rh6YYLv526
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+##      ddl-auto: create
+#      ddl-auto: update
+#    properties:
+#      hibernate.jdbc.lob.non_contextual_creation: true
+  cloud:
+    config:
+      enable: false
+      uri: http://localhost:8888
+      username: thaithanhtuan4343@gmail.com
+      password: Tuan875648826
+      
+management:
+  security:
+    enabled: true
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: admin
 eureka:
   client:
-    enabled: false
-
-security:
-  oauth2:
-    client:
-      client-id: smart_choice_client
-      authorized-grant-types: client_credentials
-      client-secret: 123456
-    resource:
-      token-info-uri: http://localhost:9000/oauth/check_token
-      id: smart_choice_dev
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    #hostname: dcmwapicrtuat01.int.easycredit.vn
+#    hostname: http://localhost:9091
+#    secure-port-enabled: true
+#    non-secure-port-enabled: false
+#    secure-port: ${server.port}
+#    appname: ms-smart-choice-dev
+#    
+#
+#security:
+#  oauth2:
+#    client:
+#      client-id: smart_choice_client
+#      authorized-grant-types: client_credentials
+#      client-secret: 123456
+#    resource:
+#      token-info-uri: http://localhost:9000/oauth/check_token
+#      id: smart_choice_dev
 server:
   port: 9091
-  
-internal:
-  log-api:
-    service-id: MS-LOG-DEV
-    access-token-url: http://localhost:9000/oauth/token
-    client-id: third_party_client
-    client-secret: 123456
-    grant-type: client_credentials
-    log-url: http://localhost:9091/oauth/token
-    
-external:
-  tiki:
-    access-token-url: http://localhost:9000/oauth/token
-    client-id: third_party_client
-    client-secret: 123456
-    grant-type: client_credentials
-    tiki-url: http://localhost:9090/v1/tiki/get-all
-  lazada:
-    access-token-url: http://localhost:9000/oauth/token
-    client-id: third_party_client
-    client-secret: 123456
-    grant-type: client_credentials
-    lazada-url: http://localhost:9090/v1/lazada/get-all
-  shopee:
-    access-token-url: http://localhost:9000/oauth/token
-    client-id: third_party_client
-    client-secret: 123456
-    grant-type: client_credentials
-    shopee-url: http://localhost:9090/v1/shoppe/get-all
+#  
+#internal:
+#  log-api:
+#    service-id: MS-LOG-DEV
+#    access-token-url: http://localhost:9000/oauth/token
+#    client-id: third_party_client
+#    client-secret: 123456
+#    grant-type: client_credentials
+#    log-url: http://localhost:9091/oauth/token
+#    
+#external:
+#  tiki:
+#    access-token-url: http://localhost:9000/oauth/token
+#    client-id: third_party_client
+#    client-secret: 123456
+#    grant-type: client_credentials
+#    tiki-url: http://localhost:9090/v1/tiki/get-all
+#  lazada:
+#    access-token-url: http://localhost:9000/oauth/token
+#    client-id: third_party_client
+#    client-secret: 123456
+#    grant-type: client_credentials
+#    lazada-url: http://localhost:9090/v1/lazada/get-all
+#  shopee:
+#    access-token-url: http://localhost:9000/oauth/token
+#    client-id: third_party_client
+#    client-secret: 123456
+#    grant-type: client_credentials
+#    shopee-url: http://localhost:9090/v1/shoppe/get-all
     

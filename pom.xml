@@ -109,6 +109,23 @@
 	        <groupId>com.fasterxml.jackson.core</groupId>
 	        <artifactId>jackson-databind</artifactId>
         </dependency>
+        
+        <dependency>
+		    <groupId>javax.interceptor</groupId>
+		    <artifactId>javax.interceptor-api</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>junit-jupiter</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

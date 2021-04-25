@@ -17,5 +17,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, String> 
 //			+ " AND DATE(pr.createdDate) BETWEEN DATE(:startDate) AND DATE(:endDate) ")
 //	Page<ProductEntity> findAllByProductNameContainingAndCreatedDateBetween(@Param("productName")String productName, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, Pageable pageable);
 	
-	Page<ProductEntity> findByProductNameIgnoreCaseContaining(String productName, Pageable pageable);
+	Page<ProductEntity> findByProductNameIgnoreCaseContainingAndCreatedDateAfterAndCreatedDateBefore(String productName, LocalDate startDate, LocalDate endDate, Pageable pageable);
 }

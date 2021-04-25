@@ -2,7 +2,6 @@ package net.kuleasycode.tksmartchoice.service.impl;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +44,7 @@ public class SmartServiceImpl implements SmartService {
 //			Date startDate = ValidationUtils.parseDate(request.getStartDate());
 //			Date endDate = ValidationUtils.parseDate(request.getEndDate());
 			log.info("11122221");
-			Page<ProductEntity> pageProducts = productRepository.findByProductNameIgnoreCaseContaining(request.getSearchValue(), pageable);
+			Page<ProductEntity> pageProducts = productRepository.findByProductNameIgnoreCaseContainingAndCreatedDateAfterAndCreatedDateBefore(request.getSearchValue(), startDate, endDate, pageable);
 			
 			log.info("1111"+pageProducts.getContent());
 			List<ProductDto> listDto = pageProducts.getContent().stream().map(entity -> productConverter.convertEntityToDto(entity)).collect(Collectors.toList());
